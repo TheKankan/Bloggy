@@ -8,7 +8,7 @@ A blog coded in go allowing users to register, create posts and comment other us
 
 1. Clone the repo
 ```bash
-git clone https://github.com/TheKankan/Terminal_Chat.git
+git clone https://github.com/TheKankan/Bloggy.git
 ```
 
 2. Edit .env.example : rename it .env and change the values inside it
