@@ -1,0 +1,43 @@
+{{define "title"}}{{.Article.Title}}{{end}}
+
+{{define "content"}}
+<div class="article">
+    <h1>{{.Article.Title}}</h1>
+    <div class="meta">by {{.Article.Username}} · {{.Article.CreatedAt.Format "Jan 02, 2006"}}</div>
+    <div class="content">{{.Article.Content}}</div>
+    {{if .IsAuthor}}
+    <div class="actions">
+        <form method="POST" action="/web/articles/{{.Article.ID}}/delete">
+            <button class="btn-delete" onclick="return confirm('Delete this article?')">Delete</button>
+        </form>
+    </div>
+    {{end}}
+</div>
+
+<h2>Comments</h2>
+{{if .Comments}}
+    {{range .Comments}}
+    <div class="comment">
+        <div class="meta">{{.Username}} · {{.CreatedAt.Format "Jan 02, 2006"}}</div>
+        <p>{{.Content}}</p>
+       {{if or $.IsAuthor (eq $.CurrentUserID .UserID.String)}}
+        <form method="POST" action="/web/articles/{{$.Article.ID}}/comments/{{.ID}}/delete">
+            <button class="btn-delete btn-small" onclick="return confirm('Delete?')">Delete</button>
+        </form>
+        {{end}}
+    </div>
+    {{end}}
+{{else}}
+    <p>No comments yet.</p>
+{{end}}
+
+{{if .LoggedIn}}
+<h2>Add a comment</h2>
+<form method="POST" action="/web/articles/{{.Article.ID}}/comments">
+    <textarea name="content" placeholder="Write a comment..."></textarea>
+    <button type="submit">Post comment</button>
+</form>
+{{else}}
+<p><a href="/login">Login</a> to comment.</p>
+{{end}}
+{{end}}

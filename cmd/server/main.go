@@ -44,21 +44,35 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	// Auth
-	r.Post("/register", apiCfg.handlerRegister)
-	r.Post("/login", apiCfg.handlerLogin)
+	// Auth API
+	r.Post("/api/register", apiCfg.handlerRegister)
+	r.Post("/api/login", apiCfg.handlerLogin)
 
-	// Articles
-	r.Get("/articles", apiCfg.handlerGetArticles)
-	r.Get("/articles/{id}", apiCfg.handlerGetArticle)
-	r.Post("/articles", apiCfg.middlewareAuth(apiCfg.handlerCreateArticle))
-	r.Put("/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerUpdateArticle))
-	r.Delete("/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerDeleteArticle))
+	// Articles API
+	r.Get("/api/articles", apiCfg.handlerGetArticles)
+	r.Get("/api/articles/{id}", apiCfg.handlerGetArticle)
+	r.Post("/api/articles", apiCfg.middlewareAuth(apiCfg.handlerCreateArticle))
+	r.Put("/api/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerUpdateArticle))
+	r.Delete("/api/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerDeleteArticle))
 
-	// Comments
-	r.Get("/articles/{id}/comments", apiCfg.handlerGetComments)
-	r.Post("/articles/{id}/comments", apiCfg.middlewareAuth(apiCfg.handlerCreateComment))
-	r.Delete("/articles/{id}/comments/{commentId}", apiCfg.middlewareAuth(apiCfg.handlerDeleteComment))
+	// Comments API
+	r.Get("/api/articles/{id}/comments", apiCfg.handlerGetComments)
+	r.Post("/api/articles/{id}/comments", apiCfg.middlewareAuth(apiCfg.handlerCreateComment))
+	r.Delete("/api/articles/{id}/comments/{commentId}", apiCfg.middlewareAuth(apiCfg.handlerDeleteComment))
+
+	// Web UI
+	r.Get("/", apiCfg.webHandlerHome)
+	r.Get("/login", apiCfg.webHandlerLoginPage)
+	r.Post("/login", apiCfg.webHandlerLoginSubmit)
+	r.Get("/register", apiCfg.webHandlerRegisterPage)
+	r.Post("/register", apiCfg.webHandlerRegisterSubmit)
+	r.Get("/articles/new", apiCfg.webHandlerNewArticlePage)
+	r.Post("/articles/new", apiCfg.webHandlerNewArticleSubmit)
+	r.Get("/web/articles/{id}", apiCfg.webHandlerArticlePage)
+	r.Post("/web/articles/{id}/comments", apiCfg.webHandlerCreateComment)
+	r.Post("/web/articles/{id}/delete", apiCfg.webHandlerDeleteArticle)
+	r.Get("/logout", apiCfg.webHandlerLogout)
+	r.Post("/web/articles/{id}/comments/{commentId}/delete", apiCfg.webHandlerDeleteComment)
 
 	log.Println("Serving on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", r))

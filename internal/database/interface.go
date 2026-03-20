@@ -10,6 +10,7 @@ type Store interface {
 	// Users
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	GetUserFromUsername(ctx context.Context, username string) (User, error)
+	GetUsernameFromID(ctx context.Context, id uuid.UUID) (string, error)
 
 	// Articles
 	CreateArticle(ctx context.Context, arg CreateArticleParams) (Article, error)

@@ -7,6 +7,8 @@ package database
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -49,4 +51,16 @@ func (q *Queries) GetUserFromUsername(ctx context.Context, username string) (Use
 		&i.HashedPassword,
 	)
 	return i, err
+}
+
+const getUsernameFromID = `-- name: GetUsernameFromID :one
+SELECT username FROM users
+WHERE id = $1
+`
+
+func (q *Queries) GetUsernameFromID(ctx context.Context, id uuid.UUID) (string, error) {
+	row := q.db.QueryRowContext(ctx, getUsernameFromID, id)
+	var username string
+	err := row.Scan(&username)
+	return username, err
 }

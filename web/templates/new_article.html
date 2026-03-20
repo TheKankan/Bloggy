@@ -1,0 +1,11 @@
+{{define "title"}}New Article{{end}}
+
+{{define "content"}}
+<h1>New Article</h1>
+{{if .Error}}<p class="error">{{.Error}}</p>{{end}}
+<form method="POST" action="/articles/new">
+    <input type="text" name="title" placeholder="Title" required />
+    <textarea name="content" placeholder="Content..."></textarea>
+    <button type="submit">Publish</button>
+</form>
+{{end}}

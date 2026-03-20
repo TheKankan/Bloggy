@@ -1,0 +1,15 @@
+{{define "title"}}Bloggy - Home{{end}}
+
+{{define "content"}}
+<h1>Articles</h1>
+{{if .Articles}}
+    {{range .Articles}}
+    <div class="article">
+        <h2><a href="/web/articles/{{.ID}}">{{.Title}}</a></h2>
+        <div class="meta">by {{.Username}} · {{.CreatedAt.Format "Jan 02, 2006"}}</div>
+    </div>
+    {{end}}
+{{else}}
+    <p>No articles yet. <a href="/articles/new">Write the first one!</a></p>
+{{end}}
+{{end}}
