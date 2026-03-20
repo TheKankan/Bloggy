@@ -11,3 +11,7 @@ ORDER BY created_at ASC;
 -- name: DeleteComment :exec
 DELETE FROM comments
 WHERE id = $1;
+
+-- name: GetCommentByID :one
+SELECT * FROM comments
+WHERE id = $1;

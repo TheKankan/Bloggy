@@ -22,4 +22,5 @@ type Store interface {
 	CreateComment(ctx context.Context, arg CreateCommentParams) (Comment, error)
 	GetCommentsByArticleID(ctx context.Context, articleID uuid.UUID) ([]Comment, error)
 	DeleteComment(ctx context.Context, id uuid.UUID) error
+	GetCommentByID(ctx context.Context, id uuid.UUID) (Comment, error)
 }

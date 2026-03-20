@@ -49,8 +49,16 @@ func main() {
 	r.Post("/login", apiCfg.handlerLogin)
 
 	// Articles
+	r.Get("/articles", apiCfg.handlerGetArticles)
+	r.Get("/articles/{id}", apiCfg.handlerGetArticle)
+	r.Post("/articles", apiCfg.middlewareAuth(apiCfg.handlerCreateArticle))
+	r.Put("/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerUpdateArticle))
+	r.Delete("/articles/{id}", apiCfg.middlewareAuth(apiCfg.handlerDeleteArticle))
 
 	// Comments
+	r.Get("/articles/{id}/comments", apiCfg.handlerGetComments)
+	r.Post("/articles/{id}/comments", apiCfg.middlewareAuth(apiCfg.handlerCreateComment))
+	r.Delete("/articles/{id}/comments/{commentId}", apiCfg.middlewareAuth(apiCfg.handlerDeleteComment))
 
 	log.Println("Serving on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
