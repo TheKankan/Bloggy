@@ -11,7 +11,29 @@ A REST API and web interface for a blog platform, built in Go. Users can registe
 - 🛡️ Route protection with auth middleware
 - 🌐 Web interface served with Go templates
 
-## Quick Start
+## Quick Start (Docker)
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started) installed
+
+### Running
+
+1. Clone the repo
+```bash
+git clone https://github.com/TheKankan/Terminal_Chat.git
+```
+
+2. Edit .env.example : rename it .env and change the values inside it
+
+3. Start the server and database
+```bash
+docker compose up
+```
+
+The server is now running on `http://localhost:8080` !
+
+## Manual Setup (without Docker)
 
 ### Prerequisites
 
