@@ -70,6 +70,7 @@ The server is now running on `http://localhost:8080` !
 - **argon2id** — password hashing ([alexedwards/argon2id](https://github.com/alexedwards/argon2id))
 - **sqlc** — type-safe SQL ([sqlc](https://sqlc.dev))
 - **goose** — database migrations ([pressly/goose](https://github.com/pressly/goose))
+- **Docker** — containerization
 
 ## Contributing
 
